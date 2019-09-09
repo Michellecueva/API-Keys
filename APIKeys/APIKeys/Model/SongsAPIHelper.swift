@@ -14,7 +14,7 @@ struct  SongAPIHelper {
     static var shared = SongAPIHelper()
     
     func getUrl(str:String) -> String {
-        return "https://api.musixmatch.com/ws/1.1/track.search?q_artist=\(str)&page_size=5&apikey=261deb4710e0b9d1cd52b236a620d02d"
+        return "https://api.musixmatch.com/ws/1.1/track.search?q_artist=\(str)&page_size=100&apikey=261deb4710e0b9d1cd52b236a620d02d"
     }
     
     

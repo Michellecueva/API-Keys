@@ -23,8 +23,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        songTableView.dataSource = self
+        configureTableview()
         songsSearchBar.delegate = self
+    }
+    
+    private func configureTableview() {
+        songTableView.dataSource = self
+        songTableView.tableFooterView = UIView()
     }
     
     private func loadData(url: String) {
@@ -57,10 +62,9 @@ extension ViewController: UITableViewDataSource {
     }
 }
 extension ViewController: UISearchBarDelegate{
-
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        loadData(url: searchBar.text!)
+        let searchString = searchBar.text?.replacingOccurrences(of: " ", with: "%20")
+        loadData(url: searchString!)
     }
 }
