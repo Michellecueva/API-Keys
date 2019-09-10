@@ -78,10 +78,10 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="113.83928571428571"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="FIA-uD-awy">
             <objects>
-                <viewController id="tea-ZE-8OW" sceneMemberID="viewController">
+                <viewController id="tea-ZE-8OW" customClass="DetailViewController" customModule="APIKeys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2K3-VH-rnG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,6 +114,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tIY-TC-9sG"/>
                     </view>
+                    <connections>
+                        <outlet property="lyricsField" destination="Q9t-a8-yac" id="Sjg-q7-63k"/>
+                        <outlet property="nameLabel" destination="hqr-4O-V72" id="IxG-zb-dk2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2p-5t-BaH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
