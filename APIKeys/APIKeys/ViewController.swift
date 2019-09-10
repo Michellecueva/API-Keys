@@ -56,10 +56,40 @@ extension ViewController: UITableViewDataSource {
         let song = songs[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath)
-        cell.textLabel?.text = "Artist: \(song.artist_name)"
-        cell.detailTextLabel?.text = "Title: \(song.track_name)"
+        cell.textLabel?.text = "Title: \(song.track_name)"
+        cell.detailTextLabel?.text = "Artist: \(song.artist_name)"
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = segue.identifier else {fatalError("No identifier in segue")}
+        
+        switch segueIdentifier {
+        case "songSegue":
+            guard let DetailVC = segue.destination as? DetailViewController else {fatalError("unexpected segueVC")}
+            guard let selectedIndexPath = songTableView.indexPathForSelectedRow else{fatalError("no row selected")}
+            let song = songs[selectedIndexPath.row]
+            
+            DetailVC.songs = song
+             let titleOfSong = song.track_name.replacingOccurrences(of: " ", with: "%20")
+            LyricsAPIHelper.shared.getLyrics(url:titleOfSong) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let lyricsFromJSON):
+                        var lyrics: Lyrics!
+                        lyrics = lyricsFromJSON
+                        DetailVC.lyrics = lyrics
+                    }
+                }
+            }
+        
+        default:
+            fatalError("unexpected segue identifies")
+        }
+        
+    }    
 }
 extension ViewController: UISearchBarDelegate{
     
