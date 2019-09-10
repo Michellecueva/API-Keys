@@ -28,4 +28,7 @@ struct Track: Codable {
     let track_id: Int
     let track_name: String
     let artist_name: String
+    var title: String {
+        return self.track_name.replacingOccurrences(of: " ", with: "%20")
+    }
 }

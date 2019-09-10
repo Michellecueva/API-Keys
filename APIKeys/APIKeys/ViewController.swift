@@ -69,18 +69,15 @@ extension ViewController: UITableViewDataSource {
             guard let DetailVC = segue.destination as? DetailViewController else {fatalError("unexpected segueVC")}
             guard let selectedIndexPath = songTableView.indexPathForSelectedRow else{fatalError("no row selected")}
             let song = songs[selectedIndexPath.row]
-            
             DetailVC.songs = song
-             let titleOfSong = song.track_name.replacingOccurrences(of: " ", with: "%20")
-            LyricsAPIHelper.shared.getLyrics(url:titleOfSong) { (result) in
+            
+            LyricsAPIHelper.shared.getLyrics(url:song.title) { (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
                         print(error)
                     case .success(let lyricsFromJSON):
-                        var lyrics: Lyrics!
-                        lyrics = lyricsFromJSON
-                        DetailVC.lyrics = lyrics
+                        DetailVC.lyrics = lyricsFromJSON
                     }
                 }
             }
